@@ -1,0 +1,66 @@
+The Idea for the presentation will be the following:
+
+Show the different Ideas by solving a Game of Chess and Tic Tac Toe
+
+The Tic Tac Toe will be for the basics and illustration purposes of the algorithms and Chess will be 
+for running more complex experiments and show them the real capabilities of scaling the systems.
+
+
+We Start by commenting the first philosofical idea of Leibniz the calsulus rationale and the Universal Charactetistic. The search  for the universal computer.
+
+We mention the work of George Boole, Frege, Cantors, Russels, Hilbert, Alonso Churz, Alan Turing briefly
+
+
+Then we mention the ideas of Richard E. Bellman, and the Reinforcement Learning Paradigm. Thats where the math is going to be explained.
+Multi Arm Bandit problems.
+
+
+The idea comes from the thesis and work that we can explain everything with Mathematics, If thats possible then we can recreate our intelligence with Mathematics. The succesful Math that explained all this, is optimization, Statistics and Linear Algebra. The current research problem is that with this mathematics we can solve intelligence?
+
+We know that the best way to represent logic ( thinking) must be though a boolean operations, 0 and 1s. We also know that the best system we have to represent computers  and calculators is though Electrical Digital circuits (0 and 1s) that wansnt always the case.
+
+Computers have the ability of making autonomous calculations. We know that they operate logically, Very big constraint( There is a lot of things in human thinking that are not fully and completely logical, doenst have a complete logical explanation) e.g Origin of the Universe, Concioussness, Chess, Politics, Emotions.
+
+
+
+Explanation of the Math behind all of this:
+- As the same as Newton we must start with assumption of the universe. We define that certain problems have a Optimal Controller. We define a framework of Agents and Enviroments. The agent is thing that can execute actions in the enviroment and is able to interact with it and change the enviroment. We define that every agent has a goal,  the goal will be to maximize their reward. The Reward will be defined based on their Terminal Goal. This is called a framework of thinking. 
+
+This is very very different from other frameworks this is because this is a very general framework. Why is very General? because it can have inside of it a lot different enviroments and cases. If we defined algorithms that plays inside this framework we can do amazing things.
+
+
+Richard E. Bellman develop his framework based on a more abstract and mathematical framework. Probability and Stadistics. Probability is the assumption that we can assign a Random Variable to an event. This means that we can map events to a number in the Naturals or Reals ( Discrete or  Continous). Then we can create Probability Mass Functions (PDFs) to those Random Variables  and assign them a probability. A number from 0 -1!!!
+
+And the best way we know for searching between spaces of possible solutions in a set of numbers is trough Optimization Tecniques. The most popular if we have a differentialble function is using Calculus Optimization measuring the Derivatives of the Functions.
+
+
+The real question about Machine Learning and Intelligent Systems comes around, the question: First is the Churz-Turing Thesis is Correct? Is Probability, Scaling Variables, and Optizamtion enoought for achieving Intelligence? 
+
+IF not AGI is possible!
+
+Else: AGI its Impossible( It still  isnt that important though)
+
+Hopefully we are going to explore the current advancenments for this:
+
+
+- General Frameworks: Reinforcement Learning ( Show the Diagram of MDP). (Show the Bellman Equations). Try to Solve  Tic Tac Toe with Dynamic Programming.
+
+
+- What is the Problem with Dynamic Programming is not necesarilly better than Brute Force Approaches. (Show a Brute Force Approach, Minimax). Not General ( Two sum equilibrium enviroments very restrictivs).
+
+
+- Then show the power of Neural Networks and Sthocastic Gradient Descend, and BackPropagation. Function Approximators.
+
+- Use a purely Statistic Approach. (Supervised Learning limitations). There is not model learning Aprroach.
+
+- Combined Function Appriximators with Reinforcement Learning (Optimal Control Theory). (DQN) Both Models, with Reinforcement Learning and Stastic  Supervised Learning.
+
+
+- Show the difference between using Epsilon Delta learning, A UBC Learning, with Chess and Tic Tac Toe.
+
+
+
+
+
+
+- The Churz-Turing Thesis
