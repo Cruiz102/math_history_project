@@ -7,21 +7,21 @@ class MDP:
     def __init__(self) -> None:
         self.agent = RandomAgent()
         self.game = TicTacToe()
+
+    def reset(self):
+        self.game.reset()
+
     def play(self):
         states = self.game.grid
         actions = self.game.get_actions()
         played_action = self.agent.play(actions, states)
+        
+        if played_action is None:
+            # Handle the case where there are no valid actions (e.g., game is over or no moves left)
+            return (None, self.game.grid, True)
+        
         is_finished = self.game.make_move(played_action)
         return (played_action, self.game.grid, is_finished)
-    
-    def online_learning(self):
-        pass
-
-    def offline_learning(self, iter: int):
-        pass
-    def observe_state(self):
-        return self.game.grid
-
 
 class Agent(ABCMeta):
     def __init__(self):
@@ -34,8 +34,10 @@ class RandomAgent():
     def __init__(self):
         pass
     def play(self, actions: List, states: List):
-        a = random.choice(actions)
-        return a
+        if len(actions):
+            return random.choice(actions)  # Return a valid action
+        else:
+            return None  # No valid actions available
 
 
 class DPAgent:

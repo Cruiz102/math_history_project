@@ -12,6 +12,10 @@ class TicTacToe:
         self.grid = [None] * 9
         self.turn = Player.X
 
+    def reset(self):
+        self.grid = [None] * 9
+        self.turn = Player.X
+
     def get_actions(self):
         # Return available actions (empty cells)
         actions = []
@@ -36,12 +40,11 @@ class TicTacToe:
         return False
 
     def make_move(self, position: int):
-        # Check if the position is valid and empty
         if self.grid[position] is None:
             self.grid[position] = self.turn
-            # Check if the move results in a win
             if self.have_win(self.turn):
                 print(f"Player {self.turn.name} wins!")
+                self.turn = Player.O if self.turn == Player.X else Player.X
                 return True  # Indicate a win
             # Switch turns
             self.turn = Player.O if self.turn == Player.X else Player.X
