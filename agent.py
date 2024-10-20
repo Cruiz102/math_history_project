@@ -23,11 +23,6 @@ class MDP:
         is_finished = self.game.make_move(played_action)
         return (played_action, self.game.grid, is_finished)
 
-class Agent(ABCMeta):
-    def __init__(self):
-        pass
-    def play(self, actions, states):
-        pass
 
 
 class RandomAgent():
@@ -49,6 +44,15 @@ class DPAgent:
     def play(self, actions: List, states: List):
         pass
 
+
+def generate_all_tabular_states(game):
+    pass
+
+def generate_tabular_value_state(game):
+    pass
+
+def generalized_policy_iteration(game):
+    pass
 
 
 

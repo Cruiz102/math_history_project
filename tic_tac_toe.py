@@ -1,66 +1,87 @@
-from typing import Union
+from typing import Union, List, Tuple
 from collections import defaultdict
 from enum import Enum
-
+import copy
+from dataclasses import dataclass
 class Player(Enum):
     X = 1
     O = -1
 
-class TicTacToe:
-    def __init__(self) -> None:
-        # Initialize the grid as a list of None, representing empty cells.
-        self.grid = [None] * 9
-        self.turn = Player.X
+@dataclass
+class TicTacToeGame:
+     grid: List[int]
+     turn: Player
 
-    def reset(self):
-        self.grid = [None] * 9
-        self.turn = Player.X
-
-    def get_actions(self):
-        # Return available actions (empty cells)
-        actions = []
-        for i in range(9):
-            if self.grid[i] is None:
-                actions.append(i)
-        print(actions)
-        return actions
-
-    def have_win(self, turn: Union[Player.O, Player.X]) -> bool:
-        # Define the winning combinations
+def have_win( game:TicTacToeGame ) -> bool:
         winning_combinations = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8],  # Rows
-            [0, 3, 6], [1, 4, 7], [2, 5, 8],  # Columns
-            [0, 4, 8], [2, 4, 6]              # Diagonals
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],  
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],  
+            [0, 4, 8], [2, 4, 6]            
         ]
-
-        # Check if the current player has any of the winning combinations
         for combo in winning_combinations:
-            if all(self.grid[i] == turn for i in combo):
+            if all(game.grid[i] == game.turn for i in combo):
                 return True
         return False
 
-    def make_move(self, position: int):
-        if self.grid[position] is None:
-            self.grid[position] = self.turn
-            if self.have_win(self.turn):
-                print(f"Player {self.turn.name} wins!")
-                self.turn = Player.O if self.turn == Player.X else Player.X
-                return True  # Indicate a win
-            # Switch turns
-            self.turn = Player.O if self.turn == Player.X else Player.X
+def make_move(game: TicTacToeGame, position: int):
+        if game.grid[position] is None:
+            game.grid[position] = game.turn
+            if have_win(game):
+                print(f"Player {game.turn.name} wins!")
+                game.turn = Player.O if game.turn == Player.X else Player.X
+                return True  
+            game.turn = Player.O if game.turn == Player.X else Player.X
         else:
             print("Invalid move. Try again.")
 
-    def print_board(self):
-        # Print the current state of the board in a 3x3 grid format
+def print_board(game: TicTacToeGame):
         symbols = {None: ".", Player.X: "X", Player.O: "O"}
         for i in range(9):
-            print(symbols[self.grid[i]], end=" ")
+            print(symbols[game.grid[i]], end=" ")
             if (i + 1) % 3 == 0:
-                print()  # Newline after every 3rd element
+                print()  
 
-    def is_draw(self):
-        # Check if all cells are filled and there is no winner
-        return all(self.grid[i] is not None for i in range(9)) and not self.have_win(self.turn)
+def is_draw(game, turn):
+        return all(game.grid[i] is not None for i in range(9)) and not have_win(turn)
+
+
+def state_action(state: List[int], turn: Player)-> Tuple[List[int], List[int]]:
+        actions = []
+        s = copy.copy(state)
+        new_states = []
+        for i in range(9):
+            if state[i] is None:
+                actions.append(i)
+
+        for i in actions:
+            s[i] = turn
+            new_states.append([i for i in s])
+            s[i] = None
+
+        print(new_states)
+        return  actions,new_states
     
 
+def generate_all_tabular_states(game: TicTacToeGame):
+    stack = []
+    all_states = []
+    stack.append(game.grid)
+    while len(stack) > 0:
+         curr_state = stack.pop()
+         actions, states = state_action(curr_state, game.turn)
+         for i in range(len(actions)):
+            make_move(game, actions[i])
+            stack.append(states[i])
+            all_states.append(states[i])
+    return all_states              
+
+def generate_tabular_value_state(game: TicTacToeGame, turn : Player):
+    pass
+
+def generalized_policy_iteration(game: TicTacToeGame):
+    pass
+
+
+if __name__ == "__main__":
+     game = TicTacToeGame([None]* 9, turn= Player.X)
+     print(len(generate_all_tabular_states(game)))
