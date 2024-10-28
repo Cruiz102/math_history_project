@@ -12,6 +12,11 @@ class TicTacToeGame:
      grid: List[int]
      turn: Player
 
+
+
+def serialize_game(game: TicTacToeGame):
+     return
+     
 def have_win( game:TicTacToeGame ) -> bool:
         winning_combinations = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8],  
