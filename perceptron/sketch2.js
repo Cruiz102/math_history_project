@@ -10,7 +10,7 @@ function setup() {
   let canvasContainer = document.getElementById('canvas-container');
   if (!canvasContainer) {
     console.error("Element with ID 'canvas-container' not found.");
-    noLoop(); // Stop the sketch from continuing if critical elements are missing
+    noLoop();
     return;
   }
 
@@ -20,26 +20,18 @@ function setup() {
   canvas = createCanvas(canvasWidth, canvasHeight);
   canvas.parent('canvas-container');
 
-  // Create buttons
-  trainButton = createButton('Start Training');
+  // Assign existing buttons by their IDs
+  trainButton = select('#trainButton');
   trainButton.mousePressed(startTraining);
-  trainButton.parent('button-container');
-  trainButton.addClass('control-button');
 
-  clearButton = createButton('Clear Data');
+  clearButton = select('#clearButton');
   clearButton.mousePressed(clearData);
-  clearButton.parent('button-container');
-  clearButton.addClass('control-button');
 
-  classButton = createButton('Switch to Class 2');
+  classButton = select('#classButton');
   classButton.mousePressed(switchClass);
-  classButton.parent('button-container');
-  classButton.addClass('control-button');
 
-  // Initial drawing
   drawGrid();
 }
-
 function windowResized() {
   let canvasContainer = document.getElementById('canvas-container');
   let canvasWidth = canvasContainer.offsetWidth;
@@ -126,9 +118,28 @@ function switchClass() {
     classButton.html('Switch to Class 2');
   }
 }
+// #### THE DATA SHOULD BE NORMALIZED TO GAURANTEE CONVERGENCE
+// function normalizeData() {
+//   if (points.length === 0) return;
+
+//   // Calculate mean and standard deviation for x and y
+//   let meanX = points.reduce((sum, pt) => sum + pt.x, 0) / points.length;
+//   let meanY = points.reduce((sum, pt) => sum + pt.y, 0) / points.length;
+  
+//   let stdX = Math.sqrt(points.reduce((sum, pt) => sum + (pt.x - meanX) ** 2, 0) / points.length);
+//   let stdY = Math.sqrt(points.reduce((sum, pt) => sum + (pt.y - meanY) ** 2, 0) / points.length);
+
+//   // Normalize points
+//   points = points.map(pt => ({
+//     x: (pt.x - meanX) / (stdX || 1), // Avoid division by zero
+//     y: (pt.y - meanY) / (stdY || 1),
+//     label: pt.label
+//   }));
+// }
 
 function startTraining() {
   if (!isTraining && points.length > 0) {
+    // normalizeData(); // Normalize the data before training
     isTraining = true;
     trainPerceptron();
   }

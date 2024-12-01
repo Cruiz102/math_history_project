@@ -36,14 +36,17 @@ let trainingIndex = 0;
 let isTraining = false;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
 
+  // Detect if the user is on a mobile device and adjust the grid size
+  if (/Mobi|Android/i.test(navigator.userAgent) || windowWidth < 768) {
+    gridSize = 8; // Set grid size to 8 for phones
+  }
+
+  createCanvas(windowWidth, windowHeight);
   // Initialize grids for each square
   for (let square of squares) {
     square.grid = Array.from({ length: gridSize }, () => Array(gridSize).fill(0));
   }
-
-  // Initialize the center grid
   centerGrid.grid = Array.from({ length: gridSize }, () => Array(gridSize).fill(0));
 
   // Initialize weights
@@ -92,7 +95,7 @@ function setup() {
     gridSizeInput.attribute('min', '8');
     gridSizeInput.attribute('max', '32');
     gridSizeInput.attribute('step', '1');
-    gridSizeInput.changed(onGridSizeChanged); // Event handler for changes
+    gridSizeInput.changed(onGridSizeChanged); 
   
     gridSizeLabel = createDiv('Grid Size (8-32):');
 
@@ -144,12 +147,10 @@ function setupLayout() {
   }
   centerGrid.size = squareSize;
 
-  // Style buttons
+  // Style
   startButton.style('font-size', fontSize + 'px');
   classifyButton.style('font-size', fontSize + 'px');
   classificationResult.style('font-size', fontSize + 'px');
-
-  // Style input fields and labels
   learningRateInput.style('font-size', fontSize + 'px');
   biasInput.style('font-size', fontSize + 'px');
   learningRateLabel.style('font-size', fontSize + 'px');
@@ -169,10 +170,10 @@ function setupLayout() {
     startButton.position(buttonX, buttonY);
     buttonX += startButton.size().width + buttonSpacing;
     classifyButton.position(buttonX, buttonY);
+
     buttonX += classifyButton.size().width + buttonSpacing;
     classificationResult.position(buttonX, buttonY);
 
-    // Position input fields below buttons
     buttonY += startButton.size().height + fontSize;
     buttonX = w * 0.05;
 
@@ -201,7 +202,6 @@ function setupLayout() {
     buttonY += classifyButton.size().height + buttonSpacing;
     classificationResult.position(buttonX, buttonY);
 
-    // Position input fields below buttons
     buttonY += classificationResult.size().height + buttonSpacing;
     learningRateLabel.position(buttonX, buttonY);
     learningRateInput.position(buttonX, buttonY + fontSize * 1.5);
@@ -217,14 +217,12 @@ function setupLayout() {
     gridSizeInput.position(buttonX, buttonY + fontSize * 1.5);
   }
 
-  // Position and style clear buttons for each square
   for (let square of squares) {
     let clearButton = square.clearButton;
     clearButton.position(square.x, square.y + square.size + fontSize);
     clearButton.style('font-size', fontSize + 'px');
   }
 
-  // Position and style clear center grid button
   clearCenterButton.position(
     centerGrid.x,
     centerGrid.y + centerGrid.size + fontSize
@@ -248,17 +246,16 @@ function onGridSizeChanged() {
     square.grid = Array.from({ length: gridSize }, () => Array(gridSize).fill(0));
   }
 
-  // Re-initialize the center grid
+
   centerGrid.grid = Array.from({ length: gridSize }, () => Array(gridSize).fill(0));
 
-  // Re-initialize weights
   weights = Array(gridSize * gridSize).fill(0);
 
   // Reset bias and training state
   bias = parseFloat(biasInput.value());
   isTraining = false;
 
-  // Update the layout and redraw the canvas
+
   setupLayout();
   redraw();
 }
@@ -278,7 +275,6 @@ function draw() {
     // Draw the grid inside the square
     for (let row = 0; row < gridSize; row++) {
       for (let col = 0; col < gridSize; col++) {
-        // Fill the cell if it's marked
         if (square.grid[row][col] === 1) {
           fill(square.color);
         } else {
@@ -289,7 +285,6 @@ function draw() {
       }
     }
 
-    // Display the name of the drawing next to the clear button
     fill(0);
     noStroke();
     textSize(fontSize);
@@ -301,7 +296,6 @@ function draw() {
     );
   }
 
-  // Draw the center grid (to visualize weights)
   drawCenterGrid();
 
   // Perform continuous drawing while the mouse or touch is pressed
@@ -350,7 +344,7 @@ function drawOnSquares() {
         let gridY = Math.floor((pos.y - square.y) / cellSize);
 
         if (gridX >= 0 && gridX < gridSize && gridY >= 0 && gridY < gridSize) {
-          square.grid[gridY][gridX] = 1; // Mark the grid cell as filled
+          square.grid[gridY][gridX] = 1; 
         }
       }
     }
@@ -444,9 +438,8 @@ function trainPerceptron() {
       bias += learningRate * error;
     }
 
-    // Update visualization
     trainingIndex++;
-    redraw(); // Redraw to update the visualization
+    redraw(); 
 
     // Delay for visualization
     setTimeout(trainStep, 200); // Adjust delay as needed
@@ -499,5 +492,5 @@ function clearCenterGrid() {
   // Clear classification result
   classificationResult.html("Classification Result: ");
 
-  redraw(); // Update the canvas
+  redraw(); 
 }
