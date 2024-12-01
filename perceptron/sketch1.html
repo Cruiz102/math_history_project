@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Add the viewport meta tag -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Responsive Sketch</title>
+  <script src="libraries/p5.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    /* Style for the header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50px; /* Adjust as needed */
+      background-color: #f8f9fa; /* Light gray background */
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      box-sizing: border-box;
+      z-index: 2; /* Ensure header is above canvas and other elements */
+    }
+
+    /* Adjust the canvas to start below the header */
+    canvas {
+      position: absolute;
+      top: 0px; /* Same as header height */
+      left: 0;
+      z-index: 0; /* Ensure canvas is below buttons */
+    }
+
+    /* Style for the back button */
+    #back-button {
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      transition: background-color 0.3s;
+    }
+
+    #back-button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Adjust other buttons and divs to be relative to the new layout */
+    button, .button, .p5Button, div {
+      position: absolute;
+      z-index: 1; /* Ensure buttons and divs are above canvas */
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button id="back-button" onclick="window.location.href='index.html'">Back to Landing Page</button>
+  </header>
+  <script src="sketch.js"></script>
+</body>
+</html>
